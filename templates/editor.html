@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Comandos - DeltaHost</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/editor.css') }}">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="grid-background"></div>
+    
+    <div class="editor-container">
+        <div class="editor-sidebar">
+            <div class="sidebar-header">
+                <a href="{{ url_for('dashboard') }}" class="back-btn">
+                    <i data-lucide="arrow-left"></i>
+                    Dashboard
+                </a>
+            </div>
+            
+            <div class="bot-info" id="botInfo">
+                <div class="bot-info-header">
+                    <i data-lucide="bot"></i>
+                    <span id="botName">Cargando...</span>
+                </div>
+                <div class="bot-status" id="botStatus"></div>
+            </div>
+            
+            <div class="commands-sidebar">
+                <div class="commands-header">
+                    <h3>Comandos</h3>
+                    <button class="btn-new-command" id="btnNewCommand">
+                        <i data-lucide="plus"></i>
+                    </button>
+                </div>
+                <div class="commands-list" id="commandsList"></div>
+            </div>
+        </div>
+        
+        <div class="editor-main">
+            <div class="editor-header">
+                <div class="editor-title">
+                    <i data-lucide="terminal"></i>
+                    <span id="currentCommand">Selecciona un comando</span>
+                </div>
+                <div class="editor-actions">
+                    <button class="btn-editor" id="btnSave">
+                        <i data-lucide="save"></i>
+                        Guardar
+                    </button>
+                    <button class="btn-editor danger" id="btnDelete">
+                        <i data-lucide="trash-2"></i>
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="editor-workspace">
+                <textarea id="codeEditor"></textarea>
+            </div>
+            
+            <div class="editor-footer">
+                <div class="footer-info">
+                    <span><i data-lucide="file-code"></i> JavaScript</span>
+                    <span id="lineInfo">Línea 1, Columna 1</span>
+                </div>
+                <div class="footer-actions">
+                    <span class="status-indicator" id="statusIndicator">Listo</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="newCommandModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nuevo Comando</h2>
+                <button class="close-modal" id="closeNewCommand">&times;</button>
+            </div>
+            <form id="newCommandForm">
+                <div class="form-group">
+                    <label><i data-lucide="hash"></i> Nombre del Comando</label>
+                    <input type="text" id="newCommandName" placeholder="ayuda" required>
+                    <small>Sin el slash (/)</small>
+                </div>
+                <button type="submit" class="btn-primary">Crear Comando</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="message-toast" id="messageToast"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

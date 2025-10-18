@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6D28D9">
+    <title>Dashboard - DeltaHost</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="grid-background"></div>
+    
+    <nav class="dashboard-nav">
+        <div class="nav-content">
+            <div class="logo">DeltaHost</div>
+            <div class="nav-right">
+                <span class="user-email" id="userEmail"></span>
+                <a href="{{ url_for('logout') }}" class="btn-logout">
+                    <i data-lucide="log-out"></i>
+                    Salir
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Dashboard</h1>
+            <button class="btn-add-bot" id="btnAddBot">
+                <i data-lucide="plus"></i>
+                Añadir Bot
+            </button>
+        </div>
+
+        <div class="bots-grid" id="botsGrid">
+            
+        </div>
+    </div>
+
+    <div class="modal" id="addBotModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Añadir Nuevo Bot</h2>
+                <button class="close-modal" id="closeAddBot">&times;</button>
+            </div>
+            <form id="addBotForm">
+                <div class="form-group">
+                    <label>Token del Bot</label>
+                    <input type="text" id="botToken" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11" required>
+                </div>
+                <div class="form-group">
+                    <label>Nombre del Bot (Opcional)</label>
+                    <input type="text" id="botName" placeholder="Mi Bot Genial">
+                </div>
+                <button type="submit" class="btn-primary">Crear Bot</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="commandsModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Comandos del Bot</h2>
+                <button class="close-modal" id="closeCommands">&times;</button>
+            </div>
+            <div class="commands-container">
+                <div class="commands-list" id="commandsList">
+                    
+                </div>
+                <div class="add-command-section">
+                    <h3>Añadir Comando</h3>
+                    <form id="addCommandForm">
+                        <div class="form-group">
+                            <label><i data-lucide="terminal"></i> Nombre del Comando</label>
+                            <input type="text" id="commandName" placeholder="ayuda">
+                        </div>
+                        <div class="form-group">
+                            <label><i data-lucide="code"></i> Código JavaScript</label>
+                            <textarea id="commandCode" rows="8" placeholder="bot.sendMessage(chatId, 'Hola! Este es el comando de ayuda');"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i data-lucide="plus-circle"></i>
+                            Añadir Comando
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="logsModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>Consola del Bot</h2>
+                <button class="close-modal" id="closeLogs">&times;</button>
+            </div>
+            <div class="console-container">
+                <div class="console-header">
+                    <div class="console-buttons">
+                        <span class="btn-red"></span>
+                        <span class="btn-yellow"></span>
+                        <span class="btn-green"></span>
+                    </div>
+                    <button class="btn-refresh" id="refreshLogs">
+                        <i data-lucide="refresh-cw"></i>
+                        Actualizar
+                    </button>
+                </div>
+                <pre class="console-output" id="consoleOutput"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="message-toast" id="messageToast"></div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

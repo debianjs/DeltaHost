@@ -1,0 +1,441 @@
+{
+  "scan_id": "scan-a7d2b837ec5d",
+  "target_path": ".",
+  "started_at": "2025-10-17T19:25:14.313778",
+  "completed_at": "2025-10-17T19:26:12.206073",
+  "statistics": {
+    "total_files": 21,
+    "total_lines": 4636,
+    "files_with_issues": 0,
+    "total_vulnerabilities": 13,
+    "by_severity": {
+      "critical": 0,
+      "high": 4,
+      "medium": 9,
+      "low": 0,
+      "info": 0
+    },
+    "fixed_count": 0,
+    "scan_duration_seconds": 55.44
+  },
+  "vulnerabilities": [
+    {
+      "id": "bandit-B201",
+      "title": "flask_debug_true",
+      "description": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "severity": "high",
+      "cvss_score": 7.5,
+      "cwe_id": null,
+      "location": "app.py:288:4",
+      "scanner": "Bandit",
+      "rule_id": "B201",
+      "message": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "references": [
+        "https://bandit.readthedocs.io/en/1.8.6/plugins/b201_flask_debug_true.html"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "confidence": "MEDIUM",
+        "code": "287     os.makedirs('database', exist_ok=True)\n288     app.run(debug=True, host='0.0.0.0', port=5000)\n"
+      },
+      "detected_at": "2025-10-17T19:25:19.462435"
+    },
+    {
+      "id": "bandit-B104",
+      "title": "hardcoded_bind_all_interfaces",
+      "description": "Possible binding to all interfaces.",
+      "severity": "medium",
+      "cvss_score": 5.0,
+      "cwe_id": null,
+      "location": "app.py:288:29",
+      "scanner": "Bandit",
+      "rule_id": "B104",
+      "message": "Possible binding to all interfaces.",
+      "references": [
+        "https://bandit.readthedocs.io/en/1.8.6/plugins/b104_hardcoded_bind_all_interfaces.html"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "confidence": "MEDIUM",
+        "code": "287     os.makedirs('database', exist_ok=True)\n288     app.run(debug=True, host='0.0.0.0', port=5000)\n"
+      },
+      "detected_at": "2025-10-17T19:25:19.462435"
+    },
+    {
+      "id": "semgrep-python-flask-security-audit-app-run-param-config-avoid_app_run_with_bad_host",
+      "title": "python.flask.security.audit.app-run-param-config.avoid_app_run_with_bad_host",
+      "description": "Running flask app with host 0.0.0.0 could expose the server publicly.",
+      "severity": "medium",
+      "cvss_score": 5.0,
+      "cwe_id": "CWE-668: Exposure of Resource to Wrong Sphere",
+      "location": "app.py:288:5",
+      "scanner": "Semgrep",
+      "rule_id": "python.flask.security.audit.app-run-param-config.avoid_app_run_with_bad_host",
+      "message": "Running flask app with host 0.0.0.0 could expose the server publicly.",
+      "references": [
+        "https://owasp.org/Top10/A01_2021-Broken_Access_Control"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "flask"
+        ],
+        "owasp": [
+          "A01:2021 - Broken Access Control"
+        ],
+        "impact": "MEDIUM",
+        "likelihood": "HIGH"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-python-flask-security-audit-debug-enabled-debug-enabled",
+      "title": "python.flask.security.audit.debug-enabled.debug-enabled",
+      "description": "Detected Flask app with debug=True. Do not deploy to production with this flag enabled as it will leak sensitive information. Instead, consider using Flask configuration variables or setting 'debug' using system environment variables.",
+      "severity": "medium",
+      "cvss_score": 5.0,
+      "cwe_id": "CWE-489: Active Debug Code",
+      "location": "app.py:288:5",
+      "scanner": "Semgrep",
+      "rule_id": "python.flask.security.audit.debug-enabled.debug-enabled",
+      "message": "Detected Flask app with debug=True. Do not deploy to production with this flag enabled as it will leak sensitive information. Instead, consider using Flask configuration variables or setting 'debug' using system environment variables.",
+      "references": [
+        "https://labs.detectify.com/2015/10/02/how-patreon-got-hacked-publicly-exposed-werkzeug-debugger/"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "flask"
+        ],
+        "owasp": "A06:2017 - Security Misconfiguration",
+        "impact": "MEDIUM",
+        "likelihood": "HIGH"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-generic-secrets-security-detected-telegram-bot-api-key-detected-telegram-bot-api-key",
+      "title": "generic.secrets.security.detected-telegram-bot-api-key.detected-telegram-bot-api-key",
+      "description": "Telegram Bot API Key detected",
+      "severity": "high",
+      "cvss_score": 7.0,
+      "cwe_id": "CWE-798: Use of Hard-coded Credentials",
+      "location": "bots\\bot_5.js:3:16",
+      "scanner": "Semgrep",
+      "rule_id": "generic.secrets.security.detected-telegram-bot-api-key.detected-telegram-bot-api-key",
+      "message": "Telegram Bot API Key detected",
+      "references": [
+        "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "secrets",
+          "telegram"
+        ],
+        "owasp": [
+          "A07:2021 - Identification and Authentication Failures"
+        ],
+        "impact": "MEDIUM",
+        "likelihood": "LOW"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-javascript-browser-security-insecure-document-method-insecure-document-method",
+      "title": "javascript.browser.security.insecure-document-method.insecure-document-method",
+      "description": "User controlled data in methods like `innerHTML`, `outerHTML` or `document.write` is an anti-pattern that can lead to XSS vulnerabilities",
+      "severity": "high",
+      "cvss_score": 7.0,
+      "cwe_id": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "location": "static\\js\\dashboard.js:145:13",
+      "scanner": "Semgrep",
+      "rule_id": "javascript.browser.security.insecure-document-method.insecure-document-method",
+      "message": "User controlled data in methods like `innerHTML`, `outerHTML` or `document.write` is an anti-pattern that can lead to XSS vulnerabilities",
+      "references": [
+        "https://owasp.org/Top10/A03_2021-Injection"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "browser"
+        ],
+        "owasp": [
+          "A07:2017 - Cross-Site Scripting (XSS)",
+          "A03:2021 - Injection"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-javascript-browser-security-insecure-document-method-insecure-document-method",
+      "title": "javascript.browser.security.insecure-document-method.insecure-document-method",
+      "description": "User controlled data in methods like `innerHTML`, `outerHTML` or `document.write` is an anti-pattern that can lead to XSS vulnerabilities",
+      "severity": "high",
+      "cvss_score": 7.0,
+      "cwe_id": "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "location": "static\\js\\dashboard.js:254:13",
+      "scanner": "Semgrep",
+      "rule_id": "javascript.browser.security.insecure-document-method.insecure-document-method",
+      "message": "User controlled data in methods like `innerHTML`, `outerHTML` or `document.write` is an anti-pattern that can lead to XSS vulnerabilities",
+      "references": [
+        "https://owasp.org/Top10/A03_2021-Injection"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "browser"
+        ],
+        "owasp": [
+          "A07:2017 - Cross-Site Scripting (XSS)",
+          "A03:2021 - Injection"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-html-security-audit-missing-integrity-missing-integrity",
+      "title": "html.security.audit.missing-integrity.missing-integrity",
+      "description": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "severity": "medium",
+      "cvss_score": 5.0,
+      "cwe_id": "CWE-353: Missing Support for Integrity Check",
+      "location": "templates\\auth.html:8:5",
+      "scanner": "Semgrep",
+      "rule_id": "html.security.audit.missing-integrity.missing-integrity",
+      "message": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "references": [
+        "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "html"
+        ],
+        "owasp": [
+          "A08:2021 - Software and Data Integrity Failures"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-html-security-audit-missing-integrity-missing-integrity",
+      "title": "html.security.audit.missing-integrity.missing-integrity",
+      "description": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "severity": "medium",
+      "cvss_score": 5.0,
+      "cwe_id": "CWE-353: Missing Support for Integrity Check",
+      "location": "templates\\auth.html:10:5",
+      "scanner": "Semgrep",
+      "rule_id": "html.security.audit.missing-integrity.missing-integrity",
+      "message": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "references": [
+        "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "html"
+        ],
+        "owasp": [
+          "A08:2021 - Software and Data Integrity Failures"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-html-security-audit-missing-integrity-missing-integrity",
+      "title": "html.security.audit.missing-integrity.missing-integrity",
+      "description": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "severity": "medium",
+      "cvss_score": 5.0,
+      "cwe_id": "CWE-353: Missing Support for Integrity Check",
+      "location": "templates\\dashboard.html:9:5",
+      "scanner": "Semgrep",
+      "rule_id": "html.security.audit.missing-integrity.missing-integrity",
+      "message": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "references": [
+        "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "html"
+        ],
+        "owasp": [
+          "A08:2021 - Software and Data Integrity Failures"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-html-security-audit-missing-integrity-missing-integrity",
+      "title": "html.security.audit.missing-integrity.missing-integrity",
+      "description": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "severity": "medium",
+      "cvss_score": 5.0,
+      "cwe_id": "CWE-353: Missing Support for Integrity Check",
+      "location": "templates\\dashboard.html:11:5",
+      "scanner": "Semgrep",
+      "rule_id": "html.security.audit.missing-integrity.missing-integrity",
+      "message": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "references": [
+        "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "html"
+        ],
+        "owasp": [
+          "A08:2021 - Software and Data Integrity Failures"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-html-security-audit-missing-integrity-missing-integrity",
+      "title": "html.security.audit.missing-integrity.missing-integrity",
+      "description": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "severity": "medium",
+      "cvss_score": 5.0,
+      "cwe_id": "CWE-353: Missing Support for Integrity Check",
+      "location": "templates\\index.html:8:5",
+      "scanner": "Semgrep",
+      "rule_id": "html.security.audit.missing-integrity.missing-integrity",
+      "message": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "references": [
+        "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "html"
+        ],
+        "owasp": [
+          "A08:2021 - Software and Data Integrity Failures"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    },
+    {
+      "id": "semgrep-html-security-audit-missing-integrity-missing-integrity",
+      "title": "html.security.audit.missing-integrity.missing-integrity",
+      "description": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "severity": "medium",
+      "cvss_score": 5.0,
+      "cwe_id": "CWE-353: Missing Support for Integrity Check",
+      "location": "templates\\index.html:10:5",
+      "scanner": "Semgrep",
+      "rule_id": "html.security.audit.missing-integrity.missing-integrity",
+      "message": "This tag is missing an 'integrity' subresource integrity attribute. The 'integrity' attribute allows for the browser to verify that externally hosted files (for example from a CDN) are delivered without unexpected manipulation. Without this attribute, if an attacker can modify the externally hosted resource, this could lead to XSS and other types of attacks. To prevent this, include the base64-encoded cryptographic hash of the resource (file) you\u00e2\u20ac\u2122re telling the browser to fetch in the 'integrity' attribute for all externally hosted files.",
+      "references": [
+        "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures"
+      ],
+      "has_fix": false,
+      "fix_status": null,
+      "metadata": {
+        "category": "security",
+        "technology": [
+          "html"
+        ],
+        "owasp": [
+          "A08:2021 - Software and Data Integrity Failures"
+        ],
+        "impact": "LOW",
+        "likelihood": "LOW"
+      },
+      "detected_at": "2025-10-17T19:26:12.204067"
+    }
+  ],
+  "errors": [],
+  "metadata": {
+    "config": {
+      "version": "1.0",
+      "scan": {
+        "languages": [
+          "python",
+          "javascript",
+          "typescript"
+        ],
+        "exclude": [
+          "node_modules/**",
+          "venv/**",
+          ".git/**",
+          "*.test.js"
+        ],
+        "severity_threshold": "low",
+        "max_issues": 1000,
+        "timeout_seconds": 3600,
+        "parallel_jobs": 4
+      },
+      "autofix": {
+        "enabled": false,
+        "mode": "safe",
+        "backup": true,
+        "interactive": false,
+        "max_fixes": 100
+      },
+      "reporting": {
+        "formats": [
+          "json"
+        ],
+        "output_dir": "security-reports",
+        "include_metrics": true,
+        "show_fixed": true,
+        "verbose": false
+      },
+      "github": {
+        "enabled": false,
+        "token": null,
+        "comment_on_pr": true,
+        "create_issues": false,
+        "labels": [
+          "security",
+          "automated"
+        ]
+      }
+    },
+    "scanners": [
+      "BanditScanner",
+      "SafetyScanner",
+      "SemgrepScanner"
+    ]
+  }
+}
