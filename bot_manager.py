@@ -9,7 +9,7 @@ class BotManager:
         self.running_bots = {}
         
     def create_bot_file(self, bot_id, token):
-        bot_code = f"""import TelegramBot from 'node-telegram-bot-api';
+        bot_code = f"""const TelegramBot = require('node-telegram-bot-api');
 
 const token = '{token}';
 const bot = new TelegramBot(token, {{polling: true}});
@@ -48,7 +48,7 @@ bot.onText(/\/start/, (msg) => {{
         commands = c.fetchall()
         conn.close()
         
-        bot_code = f"""import TelegramBot from 'node-telegram-bot-api';
+        bot_code = f"""const TelegramBot = require('node-telegram-bot-api');
 
 const token = '{token}';
 const bot = new TelegramBot(token, {{polling: true}});
